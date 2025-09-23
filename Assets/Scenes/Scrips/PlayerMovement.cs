@@ -20,16 +20,19 @@ public class PlayerMovement : MonoBehaviour
     private float _smoothTime = 0.1f;
     private Quaternion targetRotation;
 
+    [SerializeField]
+    private Animator _animator;
+
     // Start is called before the first frame update
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
         PlayerVelocity();
-        FlipPlayer();
     }
 
     private void PlayerVelocity()
@@ -41,18 +44,6 @@ public class PlayerMovement : MonoBehaviour
             _smoothTime
         );
         _rigidbody.velocity = _movementInputSmooth * _speed;
-    }
-
-    private void FlipPlayer()
-    {
-        if (_movementInputSmooth.x > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        else if (_movementInputSmooth.x < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
     }
 
     private void OnMove(InputValue value)
