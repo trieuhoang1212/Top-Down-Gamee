@@ -64,23 +64,21 @@
     <Analyzer Include="C:\Program Files\Unity 2022.3.62f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scenes\Scrips\VectorsExtention.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\FunctionUpdater.cs" />
-    <Compile Include="Assets\Scenes\Scrips\IHittable.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\UI_TextComplex.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\FunctionPeriodic.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\UI_BarMultiple.cs" />
     <Compile Include="Assets\CodeMonkey\MonoBehaviours\PositionRendererSorter.cs" />
-    <Compile Include="Assets\Scenes\Scrips\PlayerAimWeapon.cs" />
     <Compile Include="Assets\Scenes\Scrips\PlayerMovement.cs" />
     <Compile Include="Assets\CodeMonkey\MonoBehaviours\CameraFollowSetup.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\UtilsClass.cs" />
     <Compile Include="Assets\CodeMonkey\MonoBehaviours\ComponentActions.cs" />
     <Compile Include="Assets\CodeMonkey\CMDebug.cs" />
+    <Compile Include="Assets\Scenes\Scrips\Shotting.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\FunctionTimer.cs" />
     <Compile Include="Assets\CodeMonkey\MonoBehaviours\CameraFollow.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\UI_Bar.cs" />
-    <Compile Include="Assets\Scenes\Scrips\TrailBullet.cs" />
+    <Compile Include="Assets\Scenes\Scrips\Bullet.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\World_Bar.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\Button_Sprite.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\UI_Sprite.cs" />
