@@ -30,6 +30,9 @@ public class Shotting : MonoBehaviour
     [SerializeField]
     private float _bulletForce; // Lực bắn đạn.
 
+    [SerializeField]
+    private float _slowPlayerSpeed = 1f; // Tốc độ giảm của player khi bắn.
+
     void Start()
     {
         _cameraMain = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Camera>();
@@ -93,5 +96,10 @@ public class Shotting : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         if (rb)
             rb.AddForce(dir * _bulletForce, ForceMode2D.Impulse);
+
+        // Giảm tốc độ player khi bắn.
+        PlayerMovement playerMovement = transform.parent.GetComponent<PlayerMovement>();
+        if (playerMovement)
+            playerMovement.PlayerSlowSpeed(_slowPlayerSpeed);
     }
 }
