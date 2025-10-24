@@ -1331,6 +1331,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7904057303389226297, guid: 7a19eb57d4cdccc4ebc4359517a8a30a, type: 3}
+      propertyPath: m_Time
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7904057303389226297, guid: 7a19eb57d4cdccc4ebc4359517a8a30a, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7904057303389226297, guid: 7a19eb57d4cdccc4ebc4359517a8a30a, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.32857132
+      objectReference: {fileID: 0}
     - target: {fileID: 5424195014597976574, guid: 7a19eb57d4cdccc4ebc4359517a8a30a, type: 3}
       propertyPath: m_Name
       value: Bullet
@@ -1378,43 +1390,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5424195014597976574, guid: 7a19eb57d4cdccc4ebc4359517a8a30a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 247740444}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a19eb57d4cdccc4ebc4359517a8a30a, type: 3}
---- !u!1 &247740443 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5424195014597976574, guid: 7a19eb57d4cdccc4ebc4359517a8a30a, type: 3}
-  m_PrefabInstance: {fileID: 247740442}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &247740444
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 247740443}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &307019178
 GameObject:
   m_ObjectHideFlags: 0
@@ -4049,10 +4026,11 @@ MonoBehaviour:
   _muzzleFlashAnimator: {fileID: 587585809}
   _muzzleFlashPrefab: {fileID: 587585806}
   _gunPoint: {fileID: 632518352}
-  _bulletPrefab: {fileID: 4766269287295348522, guid: 384f282fb30c0694695b7c00a11041e5, type: 3}
+  _bulletPrefab: {fileID: 5424195014597976574, guid: 7a19eb57d4cdccc4ebc4359517a8a30a, type: 3}
   _fireInterval: 0.2
   _fireCooldown: 0
-  _bulletForce: 9
+  _bulletForce: 50
+  _slowPlayerSpeed: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5693,7 +5671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3
   _smoothTime: 0.1
-  _animator: {fileID: 0}
+  _animator: {fileID: 1056166728}
 --- !u!114 &1056166727
 MonoBehaviour:
   m_ObjectHideFlags: 0
