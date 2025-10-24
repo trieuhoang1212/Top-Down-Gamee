@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Animator _animator;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
