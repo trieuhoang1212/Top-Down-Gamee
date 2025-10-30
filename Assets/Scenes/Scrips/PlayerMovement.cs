@@ -7,21 +7,21 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float _speed;
-    private float _originalSpeed;
+    private float _speed; // Tốc độ di chuyển của player.
+    private float _originalSpeed; // Tốc độ gốc của player.
 
-    private Rigidbody2D _rigidbody;
+    private Rigidbody2D _rigidbody; // Rigidbody2D của player.
 
     //================= Movement =================
-    private Vector2 _movementInput;
-    private Vector2 _smoothVelocity;
-    private Vector2 _movementInputSmooth;
+    private Vector2 _movementInput; // Input di chuyển từ Input System.
+    private Vector2 _smoothVelocity; // Vận tốc mượt.
+    private Vector2 _movementInputSmooth; // Input di chuyển mượt.
 
     [SerializeField]
-    private float _smoothTime = 0.1f;
+    private float _smoothTime = 0.1f; // Thời gian mượt.
 
     [SerializeField]
-    private Animator _animator;
+    private Animator _animator; // Animator của player.
 
     private void Awake()
     {
@@ -33,9 +33,9 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerVelocity();
-        ResetSpeedAfterDelay(0.2f);
     }
 
+    // Hàm di chuyển player với hiệu ứng mượt.
     private void PlayerVelocity()
     {
         _movementInputSmooth = Vector2.SmoothDamp(
@@ -50,19 +50,21 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetFloat("isMoving", _movementInputSmooth.sqrMagnitude);
     }
 
+    // Hàm nhận input di chuyển từ Input System.
     private void OnMove(InputValue value)
     {
         _movementInput = value.Get<Vector2>();
     }
 
-    public void PlayerSlowSpeed(float speed)
+    // Hàm giảm tốc độ di chuyển của player khi bắn.
+    public IEnumerator PlayerSlowSpeed(float speed)
     {
         _speed = speed;
-        StartCoroutine(ResetSpeedAfterDelay(0.2f));
+        yield return new WaitForSeconds(3f);
     }
 
-    private IEnumerator ResetSpeedAfterDelay(float delay)
+    public void ResetSpeed()
     {
-        yield return new WaitForSeconds(delay);
+        _speed = _originalSpeed;
     }
 }

@@ -6,6 +6,7 @@ public class Shotting : MonoBehaviour
     private Camera _cameraMain; // Camera chính.
     private Vector3 mousePos; // Vị trí chuột trong thế giới.
     private Transform _playerFlip; // Transform của player để flip.
+    private PlayerMovement _playerMovement; // Tham chiếu đến script PlayerMovement.
 
     // ========== Animation ==========
     [SerializeField]
@@ -31,12 +32,15 @@ public class Shotting : MonoBehaviour
     private float _bulletForce; // Lực bắn đạn.
 
     [SerializeField]
-    private float _slowPlayerSpeed = 1f; // Tốc độ giảm của player khi bắn.
+    private float _slowPlayerSpeed = 2f; // Tốc độ giảm của player khi bắn.
+
+    private bool _isShooting = false; // Kiểm tra trạng thái bắn.
 
     void Start()
     {
         _cameraMain = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Camera>();
         _playerFlip = transform.parent;
+        _playerMovement = transform.parent.GetComponent<PlayerMovement>();
     }
 
     void Update()
@@ -75,8 +79,21 @@ public class Shotting : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && _fireCooldown <= 0)
         {
+            if (!_isShooting)
+            {
+                _isShooting = true;
+                if (_playerMovement)
+                    StartCoroutine(_playerMovement.PlayerSlowSpeed(_slowPlayerSpeed));
+            }
+
             _muzzleFlashAnimator.SetTrigger("Shoot"); // Trigger hiệu ứng bắn.
             FireBullet();
+        }
+        else if (Input.GetMouseButtonUp(0) && _isShooting)
+        {
+            _isShooting = false;
+            if (_playerMovement)
+                _playerMovement.ResetSpeed();
         }
     }
 
