@@ -73,6 +73,7 @@
     <Compile Include="Assets\CodeMonkey\MonoBehaviours\CameraFollowSetup.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\UtilsClass.cs" />
     <Compile Include="Assets\CodeMonkey\MonoBehaviours\ComponentActions.cs" />
+    <Compile Include="Assets\Scenes\Scrips\AnemySpawn.cs" />
     <Compile Include="Assets\CodeMonkey\CMDebug.cs" />
     <Compile Include="Assets\Scenes\Scrips\Shotting.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\FunctionTimer.cs" />
