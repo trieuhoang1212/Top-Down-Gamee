@@ -5,35 +5,72 @@ using UnityEngine;
 public class AnemySpawn : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _enemyPrefab; // Prefab kẻ địch.
+    private GameObject _enemyPrefab; // Prefab của kẻ thù để spawn
 
     [SerializeField]
-    private float _minimumSpawnTime; // Thời gian tối thiểu để spawn kẻ địch.
+    private Transform _playerTransform; // Thêm tham chiếu đến player
 
     [SerializeField]
-    private float _maximumSpawnTime; // Thời gian tối đa để spawn kẻ địch.
+    private float _sizeX = 1f; // vùng spawn theo trục X
 
     [SerializeField]
-    private float _spawnUntilSpawn; // Thời gian đếm ngược đến lần spawn tiếp theo.
+    private float _sizeY = 1f;
 
-    void Awake()
+    [SerializeField]
+    private int _numberOfEnemies = 5;
+
+    [SerializeField]
+    private float _spawnCooldown = 3f;
+
+    [SerializeField]
+    private float _timeSpawn;
+
+    void Start()
     {
-        SetTimeSpawn();
-    }
+        _timeSpawn = _spawnCooldown;
 
-    // Update is called once per frame
-    void Update()
-    {
-        _spawnUntilSpawn -= Time.deltaTime;
-        if (_spawnUntilSpawn <= 0f)
+        // Nếu chưa gán player trong Inspector, tự động tìm
+        if (_playerTransform == null)
         {
-            Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-            SetTimeSpawn();
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                _playerTransform = player.transform;
+            }
         }
     }
 
-    private void SetTimeSpawn()
+    void Update()
     {
-        _spawnUntilSpawn = Random.Range(_minimumSpawnTime, _maximumSpawnTime);
+        if (_spawnCooldown > 0)
+            _spawnCooldown -= Time.deltaTime;
+        if (_spawnCooldown <= 0)
+        {
+            SpawnEnemies();
+            _spawnCooldown = _timeSpawn;
+        }
+
+        NumberOfEnemies();
+    }
+
+    private void SpawnEnemies()
+    {
+        Vector3 spawnCenter = _playerTransform.position; // lấy vị trí của player làm trung tâm spawn
+
+        float xPos = (Random.value - 0.5f) * 2 * _sizeX + spawnCenter.x;
+        float yPos = (Random.value - 0.5f) * 2 * _sizeY + spawnCenter.y;
+
+        var spawn = Instantiate(_enemyPrefab);
+
+        spawn.transform.position = new Vector3(xPos, yPos, 0);
+    }
+
+    private void NumberOfEnemies()
+    {
+        int EnemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        if (EnemyCount >= _numberOfEnemies)
+        {
+            _spawnCooldown = _timeSpawn;
+        }
     }
 }
