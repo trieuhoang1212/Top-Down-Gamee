@@ -55,6 +55,8 @@ public class AnemySpawn : MonoBehaviour
 
     private void SpawnEnemies()
     {
+        if (_playerTransform == null)
+            return; // Nếu không có player, không spawn
         Vector3 spawnCenter = _playerTransform.position; // lấy vị trí của player làm trung tâm spawn
 
         float xPos = (Random.value - 0.5f) * 2 * _sizeX + spawnCenter.x;

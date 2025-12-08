@@ -61,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _speed = speed;
         yield return new WaitForSeconds(3f);
+        _speed = _originalSpeed;
     }
 
     public void ResetSpeed()
