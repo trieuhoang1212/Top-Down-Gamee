@@ -9,6 +9,9 @@ public class AnemyFollow : MonoBehaviour
 
     private GameObject _player;
 
+    [SerializeField]
+    private BoxCollider2D boxCollider2D;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +25,13 @@ public class AnemyFollow : MonoBehaviour
             _player.transform.position,
             speed * Time.deltaTime
         );
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }
