@@ -85,6 +85,7 @@
     <Compile Include="Assets\CodeMonkey\Utils\UI_Sprite.cs" />
     <Compile Include="Assets\CodeMonkey\Assets.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\World_Sprite.cs" />
+    <Compile Include="Assets\Scenes\Scrips\AnemyFollow.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\World_Mesh.cs" />
     <Compile Include="Assets\Scenes\Scrips\InfinityMap.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\Button_UI.cs" />
