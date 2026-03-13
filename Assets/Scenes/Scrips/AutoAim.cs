@@ -14,7 +14,7 @@ public class AutoAim : MonoBehaviour
 
     void Start()
     {
-        _shotting = FindObjectOfType<Shotting>();
+        _shotting = FindAnyObjectByType<Shotting>();
 
         // Kết nối button với toggle function
         _toggleAutoAimButton.onClick.AddListener(ToggleAutoAim);

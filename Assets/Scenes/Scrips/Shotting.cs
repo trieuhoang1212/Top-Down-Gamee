@@ -71,12 +71,12 @@ public class Shotting : MonoBehaviour
 
         if (_autoAimEnabled && _currentTarget != null)
         {
-            // Auto aim - xoay vào enemy, KHÔNG theo chuột
+            // xoay vào enemy, KHÔNG theo chuột
             targetPosition = _currentTarget.position;
         }
         else
         {
-            // Manual aim - theo chuột
+            // theo chuột
             mousePos = _cameraMain.ScreenToWorldPoint(Input.mousePosition);
             targetPosition = mousePos;
         }
