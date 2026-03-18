@@ -28,6 +28,9 @@ public class Shotting : MonoBehaviour
     private float _bulletSpeed = 10f; // Tốc độ đạn.
 
     [SerializeField]
+    private float _bulletDamage = 1f; // Sát thương mỗi viên đạn.
+
+    [SerializeField]
     private float _fireCooldown; // Thời gian chờ giữa các lần bắn.
 
     [SerializeField]
@@ -42,11 +45,24 @@ public class Shotting : MonoBehaviour
 
     private bool _isShooting = false; // Kiểm tra trạng thái bắn.
 
+    // ========= Reloading Gun ==========
+    [SerializeField]
+    private int _maxBullets = 10; // Số đạn tối đa trong một băng.
+    private bool _autoReload = true; // Trạng thái tự động nạp đạn.
+
+    [SerializeField]
+    private ReloadGun _reloadGun; // Tham chiếu script quản lý đạn.
+
     void Start()
     {
         _cameraMain = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Camera>();
         _playerFlip = transform.parent;
         _playerMovement = transform.parent.GetComponent<PlayerMovement>();
+
+        if (_reloadGun == null)
+        {
+            _reloadGun = GetComponentInParent<ReloadGun>();
+        }
     }
 
     void Update()
@@ -71,12 +87,12 @@ public class Shotting : MonoBehaviour
 
         if (_autoAimEnabled && _currentTarget != null)
         {
-            // xoay vào enemy, KHÔNG theo chuột
+            // Auto aim - xoay vào enemy, KHÔNG theo chuột
             targetPosition = _currentTarget.position;
         }
         else
         {
-            // theo chuột
+            // Manual aim - theo chuột
             mousePos = _cameraMain.ScreenToWorldPoint(Input.mousePosition);
             targetPosition = mousePos;
         }
@@ -135,6 +151,17 @@ public class Shotting : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && _fireCooldown <= 0)
         {
+            if (_reloadGun != null && !_reloadGun.CanShoot())
+            {
+                if (_isShooting)
+                {
+                    _isShooting = false;
+                    if (_playerMovement)
+                        _playerMovement.ResetSpeed();
+                }
+                return;
+            }
+
             if (!_isShooting)
             {
                 _isShooting = true;
@@ -144,6 +171,16 @@ public class Shotting : MonoBehaviour
 
             _muzzleFlashAnimator.SetTrigger("Shoot"); // Trigger hiệu ứng bắn.
             FireBullet();
+
+            if (_reloadGun != null)
+            {
+                _reloadGun.ConsumeBullet(); // Giảm số đạn sau mỗi lần bắn.
+                if (_reloadGun.CurrentBullets <= 0 && _autoReload)
+                {
+                    _reloadGun.Reload(); // Reset đạn về max.
+                    Debug.Log("Reloaded!"); // Log để kiểm tra.
+                }
+            }
         }
         else if (Input.GetMouseButtonUp(0) && _isShooting)
         {
@@ -177,14 +214,15 @@ public class Shotting : MonoBehaviour
         // Gọi đạn.
         GameObject bullet = Instantiate(_bulletPrefab, _gunPoint.position, Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
         if (rb)
         {
             rb.velocity = dir * _bulletSpeed; // Tốc độ đạn.
         }
-        // Giảm tốc độ player khi bắn.
-        PlayerMovement playerMovement = transform.parent.GetComponent<PlayerMovement>();
-        if (playerMovement)
-            playerMovement.PlayerSlowSpeed(_slowPlayerSpeed);
+        if (bulletScript)
+        {
+            bulletScript.SetDamage(_bulletDamage);
+        }
     }
 
     // Public method để toggle auto aim từ button UI

@@ -1,11 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AutoAim : MonoBehaviour
 {
     [SerializeField]
-    private Button _toggleAutoAimButton; // Button để toggle auto aim.
+    private UnityEngine.UI.Button _toggleAutoAimButton; // Button để toggle auto aim.
 
     [SerializeField]
     private TMP_Text _statusText; // Text hiển thị trạng thái auto aim.
